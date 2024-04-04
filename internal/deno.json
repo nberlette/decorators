@@ -1,0 +1,13 @@
+{
+  "name": "@decorators/internal",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./mod.ts",
+    "./assert": "./assert.ts",
+    "./helpers": "./helpers.ts",
+    "./types": "./types.ts"
+  },
+  "publish": {
+    "include": ["*.ts", "*.json", "*.md", "LICENSE"]
+  }
+}
