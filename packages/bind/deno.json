@@ -1,0 +1,19 @@
+{
+  "name": "@decorators/bind",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./mod.ts"
+  },
+  "publish": {
+    "include": ["*.ts", "README.md", "LICENSE", "deno.json"],
+    "exclude": ["*.test.*"]
+  },
+  "tasks": {
+    "test": "deno test --allow-all --no-check --coverage=.coverage",
+    "coverage": "deno coverage --html .coverage && open .coverage/html/index.html",
+    "lint": "deno lint --unstable",
+    "docs": "deno doc --html --output=docs --name=@decorators/bind ./mod.ts",
+    "publish": "deno fmt && deno task lint && deno publish",
+    "publish:dry": "deno fmt && deno task lint && deno publish --dry-run"
+  }
+}
