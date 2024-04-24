@@ -57,7 +57,8 @@ export function setFunctionLength<
 export function setFunctionProperties<
   T extends (...args: unknown[]) => unknown,
   U extends (...args: unknown[]) => unknown,
-  R extends Record<string, unknown>,
+  // deno-lint-ignore no-explicit-any
+  R extends Record<string, any>,
 >(target: T, source: U & R): T & R {
   for (const key of Reflect.ownKeys(source)) {
     const desc = Reflect.getOwnPropertyDescriptor(source, key);
@@ -65,3 +66,4 @@ export function setFunctionProperties<
   }
   return target as T & R;
 }
+s
