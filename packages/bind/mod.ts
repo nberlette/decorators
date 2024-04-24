@@ -72,51 +72,10 @@
  * console.log(example.value); // ✔️ no error
  * ```
  */
-function assert(
-  condition: unknown,
-  message?: string | Error,
-  // deno-lint-ignore ban-types
-  stackCrawlMark?: Function,
-): asserts condition {
-  if (!condition) {
-    const error = message instanceof Error
-      ? message
-      : new TypeError(message ?? "Assertion failed.");
-    Error.captureStackTrace?.(error, stackCrawlMark ?? assert);
-    error.stack?.slice();
-    throw error;
-  }
-}
-
-/**
- * Sets the name of the given function to the provided value. This is
- * primarily used in binding-related utilities like the {@linkcode bind}
- * decorator, to ensure all bound functions have the same name as the original
- * target (rather than the default "bound " prefix).
- *
- * @param fn The function to set the name of.
- * @param value The new name to assign to the function.
- * @returns The function with the new name assigned.
- */
-function setFunctionNameAndLength<
-  T extends (...args: unknown[]) => unknown,
-  K extends string,
-  L extends number,
->(fn: T, name: K, length: L): T & { readonly name: K } {
-  const nameOk = Reflect.defineProperty(fn, "name", {
-    value: name,
-    configurable: true,
-  });
-  assert(nameOk, "Cannot re-define non-configurable function name");
-
-  const lengthOk = Reflect.defineProperty(fn, "length", {
-    value: length,
-    configurable: true,
-  });
-  assert(lengthOk, "Cannot re-define non-configurable function length");
-
-  return fn as T & { readonly name: K };
-}
+import {
+  assert,
+  setFunctionProperties,
+} from "jsr:@decorators/internal@0.1.0";
 
 /**
  * Stage 3 Decorator to bind a class method to its instance or constructor,
@@ -410,10 +369,6 @@ export function bind<This extends object, Value>(
 ) {
   const { name, private: isPrivate, addInitializer } = context;
   assert(!isPrivate, "Cannot bind a class member with a #private identifier.");
-  assert(
-    ["method", "getter", "setter"].includes(context.kind),
-    `Invalid decorator context kind '${context.kind}'. @bind can only be applied to class methods, getters, and setters.`,
-  );
   switch (context.kind) {
     case "method":
       addInitializer(function initializeMethod() {
@@ -422,11 +377,7 @@ export function bind<This extends object, Value>(
           "Cannot bind to a non-extensible class.",
           initializeMethod,
         );
-        const value = setFunctionNameAndLength(
-          target.bind(this),
-          target.name,
-          target.length,
-        );
+        const value = setFunctionProperties(target.bind(this), target);
         const ok = Reflect.defineProperty(this, name, {
           value,
           writable: true,
@@ -451,11 +402,7 @@ export function bind<This extends object, Value>(
           set,
           enumerable = false,
         } = Reflect.getOwnPropertyDescriptor(owner, name) ?? {};
-        const get = setFunctionNameAndLength(
-          target.bind(this),
-          target.name,
-          target.length,
-        );
+        const get = setFunctionProperties(target.bind(this), target);
         const ok = Reflect.defineProperty(this, name, {
           get,
           ...set ? { set } : {},
@@ -481,11 +428,7 @@ export function bind<This extends object, Value>(
           get,
           enumerable = false,
         } = Reflect.getOwnPropertyDescriptor(owner, name) ?? {};
-        const set = setFunctionNameAndLength(
-          target.bind(this),
-          target.name,
-          target.length,
-        );
+        const set = setFunctionProperties(target.bind(this), target);
         const ok = Reflect.defineProperty(this, name, {
           set,
           ...get ? { get } : {},
@@ -499,5 +442,11 @@ export function bind<This extends object, Value>(
         );
       });
       break;
+    default:
+      throw new TypeError(
+        `Invalid decorator context kind: '${
+          (context as DecoratorContext).kind
+        }'.\n\n@bind can only be applied to class methods, getters, and setters.`,
+      );
   }
 }

@@ -151,10 +151,8 @@ decorator applied directly to the target class method using
 
 #### Returns
 
-    void
-
-> This decorator does not return a value; instead, it leverages a side-effect
-> style initializer callback via the `addInitializer` API.
+This decorator does not return a value; instead, it leverages a side-effect
+style initializer callback via the `addInitializer` API.
 
 ---
 
@@ -196,8 +194,14 @@ export function bind<This, Value>(
 
 | Name          | Info                                                            |
 | :------------ | :-------------------------------------------------------------- |
-| **`getter`**  | The target getter to bind to the class instance or constructor. |
+| **`getter`**  | The target **getter** to bind to the class instance or constructor. |
 | **`context`** | The getter-specific decorator context object.                   |
+
+#### Returns
+
+This decorator doesn't return a replacement getter function, but leverages a
+side-effect-like initialization callback via the `addInitializer` API to bind
+the target to the appropriate context object at the time of initialization.
 
 ---
 
@@ -243,6 +247,12 @@ export function bind<This, Value>(
 | :------------ | :-------------------------------------------------------------- |
 | **`setter`**  | The target setter to bind to the class instance or constructor. |
 | **`context`** | The setter-specific decorator context object.                   |
+
+#### Returns
+
+This decorator doesn't return a replacement setter function, but leverages a
+side-effect-like initialization callback via the `addInitializer` API to bind
+the target to the appropriate context object at the time of initialization.
 
 ---
 
@@ -445,6 +455,9 @@ class Example {
   constructor() {
     return new Proxy(this, {
       get(target, p, receiver) {
+        if (!isNaN(+p.toString())) {
+          return Reflect.get(target, "greeting", receiver)?.at(+p);
+        }
         return Reflect.get(target, p, receiver);
       },
       set(target, p, value, receiver) {
@@ -471,9 +484,9 @@ class Example {
 
 const example = new Example();
 
-example.greeting = "Goodbye, world!";
-
+example.greeting = "Goodbye, world!"; // ✔️ no error
 console.log(example.greet()); // ✔️ no error
+console.log(example[1]); // => "o"
 ```
 
 ---
