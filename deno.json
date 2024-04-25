@@ -1,6 +1,36 @@
 {
   "name": "@decorators/main",
   "version": "0.1.0",
+  "tasks": {
+    "test": "deno test --parallel --allow-all --no-check --coverage=.coverage ./packages/**/* ./internal/**/*",
+    "test:watch": "deno test --watch --parallel --allow-all --no-check --coverage=.coverage ./packages/**/* ./internal/**/*",
+    "coverage": "deno coverage --html .coverage && mkdir docs && mv .coverage/html docs/coverage",
+    "coverage:open": "deno task coverage && open docs/coverage/index.html",
+    "fmt": "deno fmt ./packages/**/* ./internal/**/*",
+    "fmt:check": "deno fmt --check ./packages/**/* ./internal/**/*",
+    "fmt:watch": "deno fmt --watch ./packages/**/* ./internal/**/*",
+    "lint": "deno lint ./packages/**/* ./internal/**/*",
+    "lint:json": "deno lint --json ./packages/**/* ./internal/**/*",
+    "lint:watch": "deno lint --watch ./packages/**/* ./internal/**/*",
+    "docs": "deno doc --html --output=docs --name=decorators ./packages/**/*",
+    "docs:check": "deno doc --lint ./packages/**/*.ts",
+    "docs:open": "deno task docs && open docs/index.html",
+    "clean": "rm -rf .coverage docs",
+    "build": "deno run -Arq ./scripts/build.ts",
+    "build:npm": "deno task build --npm",
+    "bump": "deno run -Arq ./scripts/bump.ts",
+    "bump:patch": "deno task bump --patch",
+    "bump:minor": "deno task bump --minor",
+    "bump:major": "deno task bump --major",
+    "bump:pre": "deno task bump --pre",
+    "bump:prepatch": "deno task bump --prepatch",
+    "bump:preminor": "deno task bump --preminor",
+    "bump:premajor": "deno task bump --premajor",
+    "prepublish": "deno task build && deno task test && deno task lint && deno task docs ",
+    "publish": "deno task prepublish && deno publish",
+    "publish:dry": "deno task prepublish && deno publish --dry-run",
+    "publish:npm": "deno task build:npm && deno run npm:pnpm publish --access public"
+  },
   "workspaces": [
     "./packages/bind"
   ]
