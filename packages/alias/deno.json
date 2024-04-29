@@ -3,7 +3,14 @@
   "version": "0.1.0",
   "exports": "./mod.ts",
   "publish": {
-    "include": ["*.ts", "*.md", "*.json", "LICENSE"],
-    "exclude": ["*.test.*"]
+    "include": [
+      "*.ts",
+      "*.md",
+      "*.json",
+      "LICENSE"
+    ],
+    "exclude": [
+      "*.test.*"
+    ]
   }
 }
