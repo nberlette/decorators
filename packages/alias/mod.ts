@@ -324,7 +324,7 @@ function aliasFor<
   Name extends PropertyKey & keyof This,
   Alias extends PropertyKey = PropertyKey,
 >(
-  key: Name,
+  source: Name,
 ): (target: unknown, context: DecoratorContext & { name: Alias }) => void {
   // deno-lint-ignore no-explicit-any
   return (_target, context): any => {
@@ -339,23 +339,23 @@ function aliasFor<
         const failures: PropertyKey[] = [];
 
         if (alias.strategy === "copy") {
-          this[key] = initialValue as never;
+          this[name as unknown as keyof This] = initialValue as never;
         } else if (alias.strategy === "reference") {
-          const desc = Reflect.getOwnPropertyDescriptor(this, name);
-          const ok = desc && Reflect.defineProperty(this, key, desc);
-          if (!ok) failures.push(key);
+          const desc = Reflect.getOwnPropertyDescriptor(this, source);
+          const ok = desc && Reflect.defineProperty(this, name, desc);
+          if (!ok) failures.push(name);
         } else {
-          const ok = Reflect.defineProperty(this, key, {
+          const ok = Reflect.defineProperty(this, name, {
             get() {
-              return Reflect.get(this, name) ?? (this[name] = initialValue);
+              return Reflect.get(this, source) ?? (this[name] = initialValue);
             },
             set(value: unknown) {
-              Reflect.set(this, name, value);
+              Reflect.set(this, source, value);
             },
             enumerable: true,
             configurable: true,
           });
-          if (!ok) failures.push(key);
+          if (!ok) failures.push(name);
         }
 
         if (failures.length) {
@@ -369,21 +369,21 @@ function aliasFor<
       return {
         get(this: This) {
           const fallback = context.access.get(this);
-          return Reflect.get(this, name) ?? fallback;
+          return Reflect.get(this, source) ?? fallback;
         },
         set(this: This, value: unknown) {
           const ok = Reflect.set(this, name, value);
-          if (!ok) throwAliasFailure(key, name);
+          if (!ok) throwAliasFailure(name, source);
         },
       };
     }
     // deno-lint-ignore no-explicit-any
     addInitializer(function (this: any) {
       // const value = (this as This)[key] ?? (this as This)[name];
-      const owner = resolveOwner(this, name);
-      const desc = Object.getOwnPropertyDescriptor(owner, key);
+      const owner = resolveOwner(this, source);
+      const desc = Object.getOwnPropertyDescriptor(owner, source);
       const ok = desc && Reflect.defineProperty(owner, name, desc);
-      if (!ok) throwAliasFailure(key, name);
+      if (!ok) throwAliasFailure(name, source);
     });
   };
 }
