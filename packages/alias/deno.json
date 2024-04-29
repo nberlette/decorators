@@ -1,21 +1,9 @@
 {
   "name": "@decorators/alias",
   "version": "0.1.0",
-  "exports": {
-    ".": "./mod.ts"
-  },
+  "exports": "./mod.ts",
   "publish": {
-    "include": ["*.ts", "README.md", "LICENSE", "deno.json"],
+    "include": ["*.ts", "*.md", "*.json", "LICENSE"],
     "exclude": ["*.test.*"]
-  },
-  "tasks": {
-    "test": "deno test --allow-all --no-check --coverage=.coverage",
-    "coverage:html": "deno coverage --html .coverage && mkdir docs && mv .coverage/html docs/coverage && rm -rf .coverage",
-    "coverage:open": "deno task coverage:html && open docs/coverage/index.html",
-    "lint": "deno lint --unstable",
-    "docs": "deno doc --html --output=docs --name=@decorators/alias ./mod.ts",
-    "docs:check": "deno doc --lint ./mod.ts",
-    "publish": "deno fmt && deno task lint && deno task test && deno task coverage:html && deno publish",
-    "publish:check": "{ deno fmt --check; deno task lint; deno task docs:check } && deno publish --dry-run"
   }
 }
