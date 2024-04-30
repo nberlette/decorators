@@ -23,4 +23,5 @@ jobs:
             version=$(jq -r .version deno.json)
             echo -e "📦 \\e[1;2;33mjsr\\e[m \\e[2mpublish\\e[m \\e[1;94m${name}\\e[0;2m @ \\e[0;96m${version}\\e[m \\e[2;3m(source: \\e[4;94m${pkg}\\e[0;2;3m)\\e[m"
             npx jsr publish
+            cd $_base
           }; done
