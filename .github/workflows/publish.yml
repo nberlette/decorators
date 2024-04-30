@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           _base=$(pwd);
-          for pkg of internal ./packages/*; do {
+          for pkg in internal ./packages/*; do {
             cd "$pkg"
             test -r deno.json || continue;
             name=$(jq -r .name deno.json)
