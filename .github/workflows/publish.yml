@@ -1,0 +1,26 @@
+# .github/workflows/publish.yml
+# source: https://jsr.io/docs/publishing-packages#publishing-from-github-actions
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # The OIDC ID token is used for authentication with JSR.
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          _base=$(pwd);
+          for pkg of internal ./packages/*; do {
+            cd "$pkg"
+            test -r deno.json || continue;
+            name=$(jq -r .name deno.json)
+            version=$(jq -r .version deno.json)
+            echo -e "📦 \\e[1;2;33mjsr\\e[m \\e[2mpublish\\e[m \\e[1;94m${name}\\e[0;2m @ \\e[0;96m${version}\\e[m \\e[2;3m(source: \\e[4;94m${pkg}\\e[0;2;3m)\\e[m"
+            npx jsr publish
+          }; done
