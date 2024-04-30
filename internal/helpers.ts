@@ -66,4 +66,3 @@ export function setFunctionProperties<
   }
   return target as T & R;
 }
-s
