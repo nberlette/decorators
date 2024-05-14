@@ -1,0 +1,36 @@
+{
+  "name": "@decorators/types",
+  "version": "0.1.2",
+  "exports": {
+    ".": "./mod.ts",
+    "./class": "./class.ts",
+    "./method": "./method.ts",
+    "./field": "./field.ts",
+    "./accessor": "./accessor.ts",
+    "./getter": "./getter.ts",
+    "./setter": "./setter.ts",
+    "./guards": "./guards.ts",
+    "./utilities": "./utilities.ts",
+    "./signatures": "./signatures.ts",
+    "./legacy": "./legacy.ts",
+    "./legacy/class": "./legacy/class.ts",
+    "./legacy/guards": "./legacy/guards.ts",
+    "./legacy/method": "./legacy/method.ts",
+    "./legacy/property": "./legacy/property.ts",
+    "./legacy/accessor": "./legacy/accessor.ts",
+    "./legacy/parameter": "./legacy/parameter.ts",
+    "./legacy/utilities": "./legacy/utilities.ts"
+  },
+  "publish": {
+    "include": [
+      "**/*.ts",
+      "*.json",
+      "*.md",
+      "LICENSE"
+    ],
+    "exclude": [
+      "*.test.*",
+      "**/test*"
+    ]
+  }
+}
