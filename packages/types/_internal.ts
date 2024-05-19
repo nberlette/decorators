@@ -15,7 +15,6 @@ import type {
   Constructor,
   Is,
   KeyOf,
-  Or,
   ValueOf,
 } from "jsr:@decorators/internal@^0.1.3";
 export * from "jsr:@type/union@^0.1.0";
