@@ -167,7 +167,7 @@ export interface AnyDecoratorFactory<
  * @category Signatures
  */
 export interface OverloadedDecoratorFactory<
-  Outer extends readonly unknown[] = any[],
+  Outer extends readonly unknown[] = readonly any[],
   Kind extends DecoratorKind = DecoratorKind,
   Void extends VoidableArgument = true,
 > {
@@ -195,7 +195,7 @@ export interface OverloadedDecoratorFactory<
  * @category Signatures
  */
 export interface LegacyOverloadedDecoratorFactory<
-  Outer extends readonly unknown[] = any[],
+  Outer extends readonly unknown[] = readonly any[],
   Kind extends LegacyDecoratorKind = LegacyDecoratorKind,
   Void extends VoidableArgument = true,
 > {
@@ -223,7 +223,7 @@ export interface LegacyOverloadedDecoratorFactory<
  * @category Signatures
  */
 export interface AnyOverloadedDecoratorFactory<
-  Outer extends readonly unknown[] = any[],
+  Outer extends readonly unknown[] = readonly any[],
   Kind extends AnyDecoratorKind = AnyDecoratorKind,
   Void extends VoidableArgument = true,
 > {
