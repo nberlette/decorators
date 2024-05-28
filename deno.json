@@ -1,6 +1,6 @@
 {
   "name": "@decorators/main",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "tasks": {
     "test": "deno test --parallel --allow-all --no-check=remote --coverage=.coverage ./packages/**/* ./internal/**/*",
     "test:watch": "deno test --watch --parallel --allow-all --no-check=remote --coverage=.coverage ./packages/**/* ./internal/**/*",
@@ -27,6 +27,7 @@
   "workspaces": [
     "./internal",
     "./packages/alias",
-    "./packages/bind"
+    "./packages/bind",
+    "./packages/types"
   ]
 }
