@@ -1,6 +1,6 @@
 {
   "name": "@decorators/bind",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "exports": "./mod.ts",
   "publish": {
     "include": ["*.ts", "*.md", "*.json", "LICENSE"],
