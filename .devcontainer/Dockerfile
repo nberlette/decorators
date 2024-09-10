@@ -21,7 +21,8 @@ RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/instal
     && echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/${USER:-vscode}/.bashrc
 
 # install starship and configure some defaults
-RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
+RUN export BIN_DIR=/home/${USER:-vscode}/.local/bin \
+    && curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
     && chown ${USER:-vscode} /home/${USER:-vscode}/.local/bin/starship \
     && { \
         echo 'export PATH="$HOME/.local/bin:$PATH";'; \

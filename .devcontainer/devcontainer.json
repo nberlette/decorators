@@ -53,5 +53,5 @@
       ]
     }
   },
-  "updateContentCommand": "sudo deno upgrade --canary --force 2>&1"
+  "updateContentCommand": "deno upgrade --canary --force 2>&1"
 }
