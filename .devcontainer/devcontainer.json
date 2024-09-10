@@ -9,8 +9,6 @@
     "node": "latest",
     // github cli
     "ghcr.io/devcontainers/features/github-cli:1": {},
-    // homebrew (linuxbrew)
-    "ghcr.io/meaningful-ooo/devcontainer-features/homebrew:2": {},
     // github actions
     "ghcr.io/devcontainers-contrib/features/act:1": {},
     "ghcr.io/devcontainers-contrib/features/actionlint:1": {}
