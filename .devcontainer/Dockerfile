@@ -21,7 +21,6 @@ RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/instal
     && echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/${USER:-vscode}/.bashrc
 
 # install starship and configure some defaults
-ENV STARSHIP_CONFIG=/home/${USER:-vscode}/.config/starship.toml
 RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
     && chown ${USER:-vscode} /home/${USER:-vscode}/.local/bin/starship \
     && { \
