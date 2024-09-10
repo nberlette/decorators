@@ -14,7 +14,7 @@ RUN sudo apt-get -y update \
 ENV DENO_INSTALL=/home/${USER:-vscode}/.local DENO_INSTALL_ROOT=${DENO_INSTALL}/bin
 RUN curl -fsSL https://deno.land/install.sh | sh \
     && chown ${USER:-vscode} /home/${USER:-vscode}/.local/bin/deno \
-    && deno upgrade canary
+    && /home/${USER:-vscode}/.local/bin/deno upgrade canary
 
 # install brew and add to path
 RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
@@ -34,4 +34,4 @@ RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y \
 
 # install bash completions for deno
 RUN sudo mkdir -p /etc/bash_completion.d \
-    && deno completions bash > /etc/bash_completion.d/deno.bash
+    && /home/${USER:-vscode}/.local/bin/deno completions bash > /etc/bash_completion.d/deno.bash
