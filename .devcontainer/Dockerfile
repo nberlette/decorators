@@ -12,9 +12,9 @@ RUN sudo apt-get -y update \
     && sudo apt-get -y upgrade && sudo rm -rf /var/lib/apt/lists/*
 
 # install latest deno and upgrade to canary
-ENV DENO_INSTALL=/home/${USER}/.local DENO_INSTALL_ROOT=${DENO_INSTALL}/bin
+ENV DENO_INSTALL=/home/${USER}/.local DENO_INSTALL_ROOT=/home/${USER}/.local/bin
 RUN curl -fsSL https://deno.land/install.sh | sh \
-    && chown ${USER} ${DENO_INSTALL_ROOT}/deno \
+    && chown ${USER} ${DENO_INSTALL_ROOT-}/deno \
     && ${DENO_INSTALL_ROOT-}/deno upgrade canary
 
 # install brew and add to path
