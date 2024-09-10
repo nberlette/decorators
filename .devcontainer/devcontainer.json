@@ -1,0 +1,59 @@
+{
+  "name": "@decorators",
+  "dockerFile": "Dockerfile",
+  "remoteUser": "vscode",
+  "features": {
+    // the basics
+    "git": "latest",
+    "sshd": "latest",
+    "node": "latest",
+    // github cli
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    // homebrew (linuxbrew)
+    "ghcr.io/meaningful-ooo/devcontainer-features/homebrew:2": {},
+    // github actions
+    "ghcr.io/devcontainers-contrib/features/act:1": {},
+    "ghcr.io/devcontainers-contrib/features/actionlint:1": {}
+  },
+  "build": {},
+  "updateRemoteUserUID": true,
+  // settings for the vscode editor
+  "customizations": {
+    "codespaces": {
+      "openFiles": [
+        "README.md",
+        "deno.json"
+      ]
+    },
+    "vscode": {
+      "settings": {
+        "deno.enable": true,
+        "deno.future": true, // TODO(nberlette): remove once deno 2.0 lands
+        "deno.lint": true,
+        "deno.codeLens.test": true,
+        "deno.cacheOnSave": true,
+        "deno.codeLens.testArgs": ["-A", "--no-check=remote", "--parallel", "--clean", "--doc"],
+        "editor.tabSize": 2,
+        "editor.stickyTabStops": true,
+        "editor.linkedEditing": true,
+        "editor.minimap.enabled": false,
+        "[typescript][typescriptreact][javascript][javascriptreact][json][jsonc][markdown]": {
+          "editor.defaultFormatter": "denoland.vscode-deno",
+          "editor.formatOnPaste": false,
+          "editor.formatOnSave": true
+        }
+      },
+      "extensions": [
+        "github.theme",
+        "github.vscode-github-actions",
+        "github.copilot",
+        "denoland.vscode-deno",
+        "editorconfig.editorconfig",
+        "redhat.vscode-yaml",
+        "bierner.markdown-preview-github-styles",
+        "mutantdino.resourcemonitor"
+      ]
+    }
+  },
+  "updateContentCommand": "sudo deno upgrade --canary --force 2>&1"
+}
