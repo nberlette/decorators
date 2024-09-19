@@ -1,6 +1,6 @@
 {
   "name": "@decorators",
-  "dockerFile": "Dockerfile",
+  // "dockerFile": "Dockerfile",
   "remoteUser": "vscode",
   "features": {
     // the basics
@@ -9,13 +9,12 @@
     "node": "latest",
     // homebrew
     "ghcr.io/meaningful-ooo/devcontainer-features/homebrew:2": {},
-    // github cli
     "ghcr.io/devcontainers/features/github-cli:1": {},
-    // github actions
     "ghcr.io/devcontainers-contrib/features/act:1": {},
-    "ghcr.io/devcontainers-contrib/features/actionlint:1": {}
+    "ghcr.io/devcontainers-contrib/features/actionlint:1": {},
+    "ghcr.io/prulloac/devcontainer-features/deno:1": {},
+    "ghcr.io/deep-space-cartel/devcontainers-features/starship:1": {}
   },
-  "build": {},
   "updateRemoteUserUID": true,
   // settings for the vscode editor
   "customizations": {
