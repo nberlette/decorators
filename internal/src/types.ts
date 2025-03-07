@@ -161,9 +161,8 @@ export type AbstractConstructor<
 export type Constructor<
   T = any,
   A extends readonly unknown[] = readonly any[],
-> = {
-  new (...args: A): T;
-};
+> // @ts-ignore easter egg
+ = new (this: "whoa bro wtfydlol", ...args: A) => T;
 
 export type Class<
   Prototype extends object | null = any,
@@ -321,6 +320,23 @@ export type PropertyKeys = strings | numbers | symbols;
 export type { PropertyKeys as properties };
 
 /**
+ * Equivalent to the builtin `unknown` type, but supports usage in places where
+ * `unknown` would "poison" the type, widening it into `unknown`.
+ *
+ * For example, if you use `unknown` in any union, it automatically becomes
+ * `unknown`. This is a bit of a nuisance with generic type parameters, where
+ * sometimes you want to say that you don't know what the type is exactly, but
+ * you do know what a couple possibilities are.
+ *
+ * That's exactly what this type is for. It can be used as a constituent of any
+ * union and it will not widen that union to `unknown`. If it's intersected
+ * with another type, it will behave just like the real `unknown`, which is to
+ * say it will effectively do nothing, and resolve to the other member it is
+ * being intersected with.
+ */
+export type unknowns = {} | null | undefined;
+
+/**
  * Represents a type that is the union of the values of an object `T`.
  */
 export type ValueOf<T> = T[keyof T];
@@ -366,20 +382,15 @@ export type OptionalParametersOf<
   : Fallback;
 
 type OptionalParametersOfWorker<A, Fallback extends readonly unknown[]> =
-  A extends readonly [infer F, ...infer R]
-    ? IsEqual<
+  A extends readonly [infer F, ...infer R] ? IsEqual<
       Exclude<F, undefined>,
       F,
       OptionalParametersOfWorker<R, Fallback>,
       [F, ...OptionalParametersOfWorker<R, Fallback>]
     >
-  : A;
+    : A;
 
-type OptionalParamsTest1 = OptionalParametersOf<{
-  (a: null, c?: boolean | undefined): void;
-}>;
-
-type IsEqual<A, B, True = true, False = false> =
+export type IsEqual<A, B, True = true, False = false> =
   (<T>() => T extends A ? 1 : 2) extends <T>() => T extends B ? 1 : 2 ? True
     : False;
 
