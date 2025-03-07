@@ -95,6 +95,6 @@ export const defaults = {
   Map: Map as MapLikeConstructor,
   Date: Date as TimeProvider,
   LRU: LRU as LruLikeConstructor,
-} as const satisfies Required<Overrides>;
+} as const;
 
 export default defaults;
