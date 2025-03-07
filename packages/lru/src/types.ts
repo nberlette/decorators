@@ -1,5 +1,10 @@
 // deno-lint-ignore-file no-explicit-any
-
+/**
+ * This module contains type definitions and interfaces used by the
+ * `@decorators/lru` library.
+ *
+ * @module types
+ */
 const kCacheKey: unique symbol = Symbol("cacheKey");
 type kCacheKey = typeof kCacheKey;
 
