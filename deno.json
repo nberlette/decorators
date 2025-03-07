@@ -1,30 +1,11 @@
 {
-  "name": "@decorators/main",
-  "version": "0.1.2",
-  "tasks": {
-    "test": "deno test --parallel --allow-all --no-check=remote --coverage=.coverage ./packages/**/* ./internal/**/*",
-    "test:watch": "deno test --watch --parallel --allow-all --no-check=remote --coverage=.coverage ./packages/**/* ./internal/**/*",
-    "coverage": "deno coverage --html .coverage && mkdir docs && mv .coverage/html docs/coverage",
-    "coverage:open": "deno task coverage && open docs/coverage/index.html",
-    "fmt": "deno fmt ./packages/**/* ./internal/**/*",
-    "fmt:check": "deno fmt --check ./packages/**/* ./internal/**/*",
-    "fmt:watch": "deno fmt --watch ./packages/**/* ./internal/**/*",
-    "lint": "deno lint ./packages/**/* ./internal/**/*",
-    "lint:json": "deno lint --json ./packages/**/* ./internal/**/*",
-    "lint:watch": "deno lint --watch ./packages/**/* ./internal/**/*",
-    "docs": "deno doc --html --output=docs --name=decorators ./packages/**/*",
-    "docs:check": "deno doc --lint ./packages/**/*.ts",
-    "docs:open": "deno task docs && open docs/index.html",
-    "prepublish": "deno task fmt:check && deno task test && deno task lint && deno task docs && deno task coverage",
-    "bump": "deno task prepublish && deno run -Arq ./scripts/bump.ts",
-    "publish": "deno task bump && deno publish",
-    "publish:check": "deno task bump --dry-run && deno publish --dry-run",
-    "publish:major": "deno task bump --major && deno publish",
-    "publish:minor": "deno task bump --minor && deno publish",
-    "publish:patch": "deno task bump --patch && deno publish",
-    "clean": "rm -rf .coverage docs"
+  "license": "MIT",
+  "author": {
+    "name": "Nicholas Berlette",
+    "email": "nick@berlette.com",
+    "url": "https://github.com/nberlette/decorators"
   },
-  "workspaces": [
+  "workspace": [
     "./internal",
     "./packages/alias",
     "./packages/bind"
