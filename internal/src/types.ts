@@ -162,7 +162,7 @@ export type Constructor<
   T = any,
   A extends readonly unknown[] = readonly any[],
 > // @ts-ignore easter egg
- = new (this: "whoa bro wtfydlol", ...args: A) => T;
+ = new (...args: A) => T;
 
 export type Class<
   Prototype extends object | null = any,
