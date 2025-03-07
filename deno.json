@@ -8,7 +8,8 @@
   "workspace": [
     "./internal",
     "./packages/alias",
-    "./packages/bind"
+    "./packages/bind",
+    "./packages/lru"
   ],
   "tasks": {
     "test:check": "deno test --parallel -A --clean --coverage=.coverage",

@@ -1,0 +1,21 @@
+{
+  "name": "@decorators/lru",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Nicholas Berlette",
+    "email": "nick@berlette.com",
+    "url": "https://github.com/nberlette/decorators"
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./cache": "./src/lru_cache.ts",
+    "./decorator": "./src/lru_decorator.ts",
+    "./options": "./src/options.ts",
+    "./types": "./src/types.ts"
+  },
+  "imports": {
+    "@std/expect": "jsr:@std/expect@^1.0.13",
+    "@std/testing": "jsr:@std/testing@^1.0.9"
+  }
+}
