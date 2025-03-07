@@ -12,6 +12,7 @@
     "./cache": "./src/lru_cache.ts",
     "./decorator": "./src/lru_decorator.ts",
     "./options": "./src/options.ts",
+    "./overrides": "./src/overrides.ts",
     "./types": "./src/types.ts"
   },
   "imports": {

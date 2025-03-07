@@ -2,16 +2,17 @@
 
 [<img src="https://raw.githubusercontent.com/nberlette/decorators/main/packages/lru/lru_icon.png" alt="@decorators/lru" width="300">][JSR]
 
-[![jsr-score][badge-jsr-score]][badge-jsr-score]
-[![jsr-pkg][badge-jsr-pkg]][badge-jsr-pkg]
-
 # [`@decorators/lru`][JSR]
 
-#### _"Not your average memoization decorator."_
+<big><b>Highly configurable. Strong types. Test-friendly. And really
+fast.</b></big>
 
-##### Highly configurable. Strong types. Test-friendly. And really fast.
+<small><b>Compatible with Deno, Bun, Node, Cloudflare Workers, and
+more.</b></small>
 
-###### Compatible with Deno, Bun, Node, Cloudflare Workers, and more.
+![jsr-score][badge-jsr-score] ![jsr-pkg][badge-jsr-pkg]
+
+<small><small><i>"Not your average memoization decorator."</i></small></small>
 
 </div>
 
@@ -98,13 +99,13 @@ console.log(`Fibonacci(10): ${calc.fib(10)}`);
 > tool. But don't be fooled. The `@decorators/lru` package is far more powerful
 > than your typical simple memoization tool.
 
-> Aside from supporting all the standard configurations/functionality one would
-> come to expect in a tool like this, this package cranks up the heat with
-> several distinct [features] of its own, putting it in a league of its own.
-
 ---
 
 ## Features
+
+Aside from supporting all the standard configurations/functionality one would
+come to expect in a tool like this, this package cranks up the heat with several
+distinct [features] of its own, putting it in a league of its own.
 
 - **TypeScript-First**: Fully typed, well-documented API is a breeze to use.
 - **Flexible Caching**: Cache method return values with an LRU strategy (least
@@ -125,14 +126,14 @@ console.log(`Fibonacci(10): ${calc.fib(10)}`);
   lifetimes to those of their associated class instance (and the class itself).
   - This prevents any cache from outliving the class it was created on.
   - _See the [storage API section](#storage-api) for a deep dive into this API._
-- **Dependency Injection**: Easily override[^1] internal components (e.g., the
-  LRU cache class, `Map`, `WeakMap`, `Date`). Designed with test-driven
-  development as a core focus.
+- **Dependency Injection**: Easily override internal components (e.g., the LRU
+  cache class, `Map`, `WeakMap`, `Date`). Designed with test-driven development
+  as a core focus.
 
 [storage]: ./#storage-api "View the Storage API section"
 
-[^1]: See the [storage API section](#storage-api) for more details, examples,
-    and a cautionary word of warning.
+> See the [storage API section](#storage-api) for more details on Dependency
+> Injection, the [overrides](#overrides) feature, and a cautionary warning.
 
 ### Eviction Strategies
 
@@ -153,7 +154,7 @@ lingering in the cache for an extended period of time beyond their expiration
 time), the cache mechanism will now spawn (schedule) a dedicated eviction timer
 on all new cache entries.
 
-> [!IMPORTANT]
+> [!NOTE]
 >
 > Using active eviction with very large LRU caches, especially those that see a
 > significant level of churn, could potentially result in a performance hit due
@@ -198,23 +199,38 @@ in improved memory usage, especially when caching large objects.
 
 ```ts
 type Keygen<Params> = (...args: Params) => CacheKey;
-
-// where
-//   Params extends Parameters<MemoizedMethod>,
-//   CacheKey extends string
 ```
+
+Describes a key generation function that takes the method arguments and returns
+a cache key as a string. The default implementation uses `JSON.stringify`.
 
 #### `Transform`
 
 ```ts
-type Transform<Input, Output = Input> = (
+typ`e Transform<Input, Output = Input> = (
   value: Input,
   key: CacheKey,
   entry: CacheEntry<Input>,
 ) => Output;
 ```
 
+Describes a transformation function that takes the cached value, the cache key,
+and the cache entry as its arguments, and returns a transformed value.
+
+> [!NOTE]
+>
+> The type of the output value currently must be the same as that of the input
+> value, due to design decisions made in the Decorators Proposal.
+>
+> This may change in the future, so this type accepts a second type parameter to
+> specify separate input and output types, in case that becomes possible.
+
 #### `Overrides`
+
+Allows you to override the internal APIs used by the `@lru` decorator for more
+advanced use cases, such as mocking and testing. This is an advanced feature
+that should be used with caution. It ~~can~~ **_will_** lead to unexpected
+behavior if it's not used correctly.
 
 | Option    | Type                 | Description                                                |
 | --------- | -------------------- | ---------------------------------------------------------- |
@@ -223,6 +239,14 @@ type Transform<Input, Output = Input> = (
 | `LRU`     | `MapLikeConstructor` | Override the `LRU` constructor used for the LRU cache.     |
 | `Date`    | `TimeProvider`       | Override the `Date` constructor used for the TTL timer.    |
 | `storage` | `CacheStorage`       | Override the storage API used for the LRU cache.           |
+
+<a id="advanced-warning"></a>
+
+> [!WARNING]
+>
+> The `overrides` option is considered an expert feature and is not intended to
+> be used lightly. **_Do not use this option_** if you do not know **exactly**
+> what it does, what it _can_ do, and actually have a good reason to use it.
 
 ---
 
@@ -259,9 +283,11 @@ class Calculator {
 <details><summary><strong><big>②</big> <u>Advanced Keygens</u></strong> using <a href="https://en.wikipedia.org/wiki/CBOR">CBOR</a> for complex data</summary><br>
 
 While the default keygen is sufficient for _most_ cases, occasionally it may be
-necessary to use a keygen capable of handling complex data types. For example,
-caching a method that expects a custom class instance for one or more of its
-arguments will more than likely require a custom keygen to handle properly.
+necessary to use a keygen capable of handling complex data types.
+
+For example, caching a method that expects a custom class instance for one or
+more of its arguments will more than likely require a custom keygen to handle
+properly.
 
 What happens if you don't use a custom keygen? You may end up with poor caching
 behavior, as `JSON.stringify` tends to serialize most of the objects it can't
@@ -634,13 +660,7 @@ including:
   the native `WeakMap` with the `IterableWeakMap` from [`@iter/weak-map`], for
   inspecting the weakly-held cache entries).
 
-<a id="advanced-warning"></a>
-
-> [!WARNING]
->
-> The `overrides` option is considered an expert feature and is not intended to
-> be used lightly. **Do _not_** use this unless you are absolutely sure you know
-> exactly what this does, and actually have a good reason to use it.
+> **See the [`Overrides` section](#overrides) for more details on this API.**
 
 ### Storage API
 
@@ -707,11 +727,13 @@ logs to the console whenever a method is called.
 
 <div align="center">
 
-##### [MIT] © [Nicholas Berlette]. All rights reserved.
+**[MIT]** © **[Nicholas Berlette]**. All rights reserved.
 
-##### [GitHub] · [Issues] · [JSR] · [NPM] · [Docs]
+[GitHub] · [Issues] · [JSR] · [Docs]
 
-[![JSR][badge-jsr]][JSR]
+<!-- -->
+
+![JSR][badge-jsr]
 
 <br></div>
 
@@ -719,10 +741,21 @@ logs to the console whenever a method is called.
 [Nicholas Berlette]: https://github.com/nberlette/decorators#readme "View the @decorators monorepo on GitHub"
 [GitHub]: https://github.com/nberlette/decorators/tree/main/packages/lru#readme "View the @decorators/lru project on GitHub"
 [Issues]: https://github.com/nberlette/decorators/issues?q=is%3Aopen+is%3Aissue+lru "View issues for the @decorators/lru project on GitHub"
-[JSR]: https://jsr.io/@decorators/lru/doc "View the @decorators/lru documentation on jsr.io"
-[NPM]: https://www.npmjs.com/package/@decorators.ts/lru "View the @decorators/lru package on npm"
+[JSR]: htps://jsr.io/@decorators/lru/doc "View the @decorators/lru documentation on jsr.io"
 [Docs]: https://jsr.io/@decorators/lru/doc "View the @decorators/lru documentation on jsr.io"
 [badge-jsr]: https://jsr.io/badges/@decorators "View all of the @decorators packages on jsr.io"
 [badge-jsr-pkg]: https://jsr.io/badges/@decorators/lru "View @decorators/lru on jsr.io"
 [badge-jsr-score]: https://jsr.io/badges/@decorators/lru/score "View the score for @decorators/lru on jsr.io"
 [`@iter/weak-map`]: https://jsr.io/@iter/weak-map "View the @iter/weak-map package on jsr.io"
+
+```
+```
+
+```
+```
+
+```
+```
+
+```
+```

@@ -1,3 +1,14 @@
+/**
+ * This module provides the types and default values for the custom overrides
+ * capability of the `@decorators/lru` library. It allows advanced users to
+ * customize the internal APIs used by the caching mechanisms, giving a much
+ * higher degree of flexibility and control over the caching behavior.
+ *
+ * This is especially useful for testing, where you might want to inject
+ * different implementations of the cache or storage mechanisms.
+ *
+ * @module overrides
+ */
 import { LRU } from "./lru_cache.ts";
 import type {
   CacheContainer,

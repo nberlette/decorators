@@ -1,4 +1,11 @@
 // deno-lint-ignore-file no-explicit-any
+/**
+ * This module contains the types and interfaces used for configuring the
+ * options of the LRU cache decorator.
+ *
+ * @module options
+ */
+
 import type { Overrides } from "./overrides.ts";
 import type { CacheEntry, CacheKey, ExtendedCacheEntry } from "./types.ts";
 

@@ -85,7 +85,7 @@
  * await (await f.fetch("https://jsonplaceholder.typicode.com/posts/6")).json();
  * console.log(performance.now() - a, "ms"); // ~200ms (re-cached)
  * ```
- * @module lru
+ * @module decorator
  */
 import {
   type ClassMethod,
