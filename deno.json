@@ -9,5 +9,39 @@
     "./internal",
     "./packages/alias",
     "./packages/bind"
+  ],
+  "tasks": {
+    "test:check": "deno test --parallel -A --clean --coverage=.coverage",
+    "test": "deno task test:check --no-check=remote",
+    "test:cov": "deno coverage --html .coverage",
+    "test:nocheck": "deno task test:check --no-check",
+    "docs": "deno doc --html --name=\"@decorators/$(basename $(pwd))\" mod.ts",
+    "docs:json": "deno doc --json mod.ts > docs/api.json",
+    "docs:lint": "deno doc --lint ./[!_.]*.ts",
+    "docs:test": "deno task test --doc --permit-no-files",
+    "fmt": "deno fmt --ignore=docs --ignore=.coverage",
+    "fmt:check": "deno task fmt --check",
+    "lint": "deno lint --ignore=docs --ignore=.coverage",
+    "lint:fix": "deno task lint --fix",
+    "check:all": "deno task lint; deno task docs:lint; deno task fmt:check",
+    "test:all": "deno task test; deno task docs:test; deno task test:cov",
+    "prepare": "deno task check:all && deno task test:all && deno task docs",
+    "publish": "deno task publish:dry && deno publish",
+    "publish:dry": "deno task prepare && deno publish --dry-run --allow-dirty"
+  },
+  "lock": true,
+  "vendor": false,
+  "nodeModulesDir": "auto",
+  "publish": {
+    "include": [
+      "./{packages,internal}/**/*.{ts,tsx,json,jsonc,md}",
+      "./{packages,internal}/**/LICENSE"
+    ],
+    "exclude": [
+      "**/*.test.*"
+    ]
+  },
+  "exclude": [
+    "**/{dist,docs,node_modules}/**"
   ]
 }
