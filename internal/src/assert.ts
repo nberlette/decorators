@@ -1,6 +1,7 @@
-import { is } from "jsr:@type/is@0.1.0";
-
-export * from "jsr:@type/is@0.1.0";
+/**
+ * @module assert
+ */
+import { isError } from "./guards.ts";
 
 /**
  * Asserts that a given {@link condition} is met, and throws an error if not.
@@ -19,9 +20,10 @@ export * from "jsr:@type/is@0.1.0";
  * @param condition The condition to assert.
  * @param [message] An optional message or error object to provide more context
  * about the failure and the expected condition.
- * @param [stackCrawlMark] An optional function reference to use as the starting
- * point for the stack trace. Any stack frames above this function are omitted.
- * If not provided, the `assert` function itself is used as the starting point.
+ * @param [stackCrawlMark] An optional function reference to use as the
+ * starting point for the stack trace. Any stack frames above this function are
+ * omitted. If not provided, the `assert` function itself is used as the
+ * starting point.
  * @throws If the condition is not met, an error is thrown with the provided
  * @example
  * ```ts
@@ -70,7 +72,7 @@ export function assert(
   ErrorType: typeof Error = TypeError,
 ): asserts condition {
   if (!condition) {
-    const error = is.error(message) ? message : new ErrorType(
+    const error = isError(message) ? message : new ErrorType(
       message ?? "Assertion failed. No additional context provided.",
     );
     Error.captureStackTrace?.(error, stackCrawlMark ?? assert);
