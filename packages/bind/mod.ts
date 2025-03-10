@@ -72,10 +72,7 @@
  * console.log(example.value); // ✔️ no error
  * ```
  */
-import {
-  assert,
-  setFunctionProperties,
-} from "@decorators/internal";
+import { assert, setFunctionProperties } from "@decorators/internal";
 
 /**
  * Stage 3 Decorator to bind a class method to its instance or constructor,
