@@ -75,7 +75,7 @@
 import {
   assert,
   setFunctionProperties,
-} from "jsr:@decorators/internal@^0.1.1";
+} from "@decorators/internal";
 
 /**
  * Stage 3 Decorator to bind a class method to its instance or constructor,
