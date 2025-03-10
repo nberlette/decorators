@@ -1,44 +1,31 @@
 {
   "name": "@decorators",
-  // "dockerFile": "Dockerfile",
+  "dockerFile": "Dockerfile",
   "remoteUser": "vscode",
   "features": {
-    // the basics
     "git": "latest",
     "sshd": "latest",
     "node": "latest",
-    // homebrew
-    "ghcr.io/meaningful-ooo/devcontainer-features/homebrew:2": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/meaningful-ooo/devcontainer-features/homebrew:2": {},
     "ghcr.io/devcontainers-contrib/features/act:1": {},
-    "ghcr.io/devcontainers-contrib/features/actionlint:1": {},
-    "ghcr.io/prulloac/devcontainer-features/deno:1": {}
+    "ghcr.io/devcontainers-contrib/features/actionlint:1": {}
   },
-  "updateRemoteUserUID": true,
   // settings for the vscode editor
   "customizations": {
-    "codespaces": {
-      "openFiles": [
-        "README.md",
-        "deno.json"
-      ]
-    },
     "vscode": {
       "settings": {
         "deno.enable": true,
         "deno.lint": true,
         "deno.codeLens.test": true,
         "deno.cacheOnSave": true,
-        "deno.codeLens.testArgs": ["-A", "--no-check=remote", "--parallel", "--clean", "--doc", "--permit-no-files", "--coverage=.coverage", "--hide-stacktraces"],
         "editor.tabSize": 2,
         "editor.stickyTabStops": true,
         "editor.linkedEditing": true,
         "editor.minimap.enabled": false,
-        "[typescript][typescriptreact][javascript][javascriptreact][json][jsonc][markdown][html][css][vue][svelte][astro][njk][handlebars][yaml]": {
-          "editor.defaultFormatter": "denoland.vscode-deno",
-          "editor.formatOnPaste": false,
-          "editor.formatOnSave": true
-        }
+        "editor.defaultFormatter": "denoland.vscode-deno",
+        "editor.formatOnPaste": false,
+        "editor.formatOnSave": true
       },
       "extensions": [
         "github.theme",
@@ -46,11 +33,14 @@
         "github.copilot",
         "denoland.vscode-deno",
         "editorconfig.editorconfig",
+        "vsls-contrib.gistfs",
         "redhat.vscode-yaml",
+        "antfu.browse-lite",
         "bierner.markdown-preview-github-styles",
         "mutantdino.resourcemonitor"
       ]
     }
   },
-  "updateContentCommand": "deno upgrade --canary --force 2>&1"
+  "postCreateCommand": "if command -v deno &>/dev/null; then\ndeno upgrade --canary;\ndeno completions bash > /etc/bash_completion.d/deno.bash; fi;",
+  "postAttachCommand": ". /home/vscode/.bashrc"
 }
