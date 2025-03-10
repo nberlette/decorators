@@ -192,10 +192,10 @@ export function bind<This, Value>(
 
 #### Parameters
 
-| Name          | Info                                                            |
-| :------------ | :-------------------------------------------------------------- |
+| Name          | Info                                                                |
+| :------------ | :------------------------------------------------------------------ |
 | **`getter`**  | The target **getter** to bind to the class instance or constructor. |
-| **`context`** | The getter-specific decorator context object.                   |
+| **`context`** | The getter-specific decorator context object.                       |
 
 #### Returns
 

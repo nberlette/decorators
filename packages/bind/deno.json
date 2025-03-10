@@ -1,9 +1,14 @@
 {
   "name": "@decorators/bind",
   "version": "0.1.2",
+  "license": "MIT",
+  "author": {
+    "name": "Nicholas Berlette",
+    "email": "nick@berlette.com",
+    "url": "https://github.com/nberlette/decorators"
+  },
   "exports": "./mod.ts",
-  "publish": {
-    "include": ["*.ts", "*.md", "*.json", "LICENSE"],
-    "exclude": ["*.test.*"]
+  "imports": {
+    "@decorators/internal": "jsr:@decorators/internal@^0.2.0"
   }
 }
