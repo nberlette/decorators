@@ -20,29 +20,35 @@
     "docs:json": "deno doc --json mod.ts > docs/api.json",
     "docs:lint": "deno doc --lint ./[!_.]*.ts",
     "docs:test": "deno task test --doc --permit-no-files",
-    "fmt": "deno fmt --ignore=docs --ignore=.coverage",
+    "fmt": "deno fmt",
     "fmt:check": "deno task fmt --check",
-    "lint": "deno lint --ignore=docs --ignore=.coverage",
+    "lint": "deno lint",
     "lint:fix": "deno task lint --fix",
     "check:all": "deno task lint; deno task docs:lint; deno task fmt:check",
     "test:all": "deno task test; deno task docs:test; deno task test:cov",
     "prepare": "deno task check:all && deno task test:all && deno task docs",
-    "publish": "deno task publish:dry && deno publish",
-    "publish:dry": "deno task prepare && deno publish --dry-run --allow-dirty"
+    "publish:dry": "deno task prepare && deno publish --dry-run --allow-dirty",
+    "publish": "deno task publish:dry && deno publish"
   },
   "lock": true,
   "vendor": false,
   "nodeModulesDir": "auto",
   "publish": {
     "include": [
-      "./{packages,internal}/**/*.{ts,tsx,json,jsonc,md}",
-      "./{packages,internal}/**/LICENSE"
+      "./packages/**/*.ts",
+      "./packages/**/*.md",
+      "./packages/**/*.json",
+      "./packages/**/LICENSE"
     ],
     "exclude": [
-      "**/*.test.*"
+      "**/*.test.*",
+      "**/*.bench.*",
+      "**/.*"
     ]
   },
   "exclude": [
-    "**/{dist,docs,node_modules}/**"
+    "**/docs",
+    "**/coverage",
+    "**/.*"
   ]
 }
