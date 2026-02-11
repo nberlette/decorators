@@ -7,9 +7,7 @@
   },
   "workspace": [
     "./internal",
-    "./packages/alias",
-    "./packages/bind",
-    "./packages/lru"
+    "./packages/*"
   ],
   "tasks": {
     "test:check": "deno test --parallel -A --clean --coverage=.coverage",
@@ -39,7 +37,9 @@
       "./{packages,internal}/**/LICENSE"
     ],
     "exclude": [
-      "**/*.test.*"
+      "**/*.test.*",
+      "**/*.{test,bench}.*",
+      "**/.*"
     ]
   },
   "exclude": [
