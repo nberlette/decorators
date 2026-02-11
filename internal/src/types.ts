@@ -349,14 +349,32 @@ export type ValueOf<T> = T[keyof T];
  *
  * If the {@linkcode Strict} type parameter is set to `false`, the union of
  * keys will be "anchored" with the {@linkcode PropertyKeys} branded type, to
- * allow for literal key unions to be preserved in autocomplete suggestions.
+ * allow for literal key unions to be preserved in autocomplete suggestions,
+ * which is the default behavior. If `Strict` is set to `true`, the resulting
+ * type will not be anchored, and will only include the keys of `T` that are
+ * assignable to `PropertyKey`.
+ *
+ * @template T The object type to extract keys from.
+ * @template {boolean} [Strict=false] Whether to return only the keys of `T`
+ * that are assignable to `PropertyKey`, or to anchor the resulting union with
+ * the `PropertyKeys` branded type.
+ * @category Utility Types
  */
-export type KeyOf<T, Strict extends boolean = true> =
+export type KeyOf<T, Strict extends boolean = false> =
   | (Strict extends true ? never : PropertyKeys)
   | Is<keyof T, Strict extends true ? PropertyKey : PropertyKeys>;
 
 /**
- * Extracts the parameters of
+ * Extracts the parameters of a function or constructor type `T`. If `T` is not
+ * a function or constructor, the resulting type will be `never`. This is a
+ * safer version of the built-in `Parameters` utility type, which will return
+ * `any` if the input type is not a function. This version will instead
+ * return `never`, which can help catch errors in type inference.
+ *
+ * You can also provide a custom `Fallback` type to be used when the input
+ * type is not a function or constructor.
+ *
+ * @template T The function or constructor type to extract parameters from.
  */
 // deno-fmt-ignore
 export type ParametersOf<T, Fallback extends readonly unknown[] = never> =
