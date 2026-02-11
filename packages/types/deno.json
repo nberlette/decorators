@@ -32,5 +32,14 @@
       "*.test.*",
       "**/test*"
     ]
+  },
+  "imports": {
+    "@decorators/internal": "jsr:@decorators/internal@^0.2.0",
+    "@type/union": "jsr:@type/union@^0.1.0"
+  },
+  "lint": {
+    "rules": {
+      "exclude": ["no-explicit-any"]
+    }
   }
 }
