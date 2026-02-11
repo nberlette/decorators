@@ -1,3 +1,6 @@
+/**
+ * @module helpers
+ */
 import { assert } from "./assert.ts";
 
 /**

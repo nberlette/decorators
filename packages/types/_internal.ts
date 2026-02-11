@@ -16,11 +16,11 @@ import type {
   Is,
   KeyOf,
   ValueOf,
-} from "jsr:@decorators/internal@^0.1.3";
-export * from "jsr:@type/union@^0.1.0";
-export * from "jsr:@decorators/internal@^0.1.3/assert";
-export * from "jsr:@decorators/internal@^0.1.3/types";
-export type { Is } from "jsr:@decorators/internal@^0.1.3/types";
+} from "@decorators/internal/types";
+export * from "@type/union";
+export * from "@decorators/internal/assert";
+export * from "@decorators/internal/types";
+export type { Is } from "@decorators/internal/types";
 
 /**
  * Extracts the Parameters of a given decorator.

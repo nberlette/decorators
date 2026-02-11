@@ -43,46 +43,46 @@ separate implementations.
 > **Note**: currently, parameter decorators are only r
 
 [^1]: `ClassDecoratorFunction` is the signature for decorators corresponding to
-the context type `ClassDecoratorContext` (included in TypeScript v5.x+).
+    the context type `ClassDecoratorContext` (included in TypeScript v5.x+).
 
 [^2]: `ClassFieldDecoratorFunction` is the signature for decorators
-corresponding to the context type `ClassFieldDecoratorContext` (included in
-TypeScript v5.x+).
+    corresponding to the context type `ClassFieldDecoratorContext` (included in
+    TypeScript v5.x+).
 
 [^3]: `ClassMethodDecoratorFunction` is the signature for decorators
-corresponding to the context type `ClassMethodDecoratorContext` (included in
-TypeScript v5.x+).
+    corresponding to the context type `ClassMethodDecoratorContext` (included in
+    TypeScript v5.x+).
 
 [^4]: `ClassAccessorDecoratorFunction` is the signature for decorators
-corresponding to the context type `ClassAccessorDecoratorContext` (included in
-TypeScript v5.x+).
+    corresponding to the context type `ClassAccessorDecoratorContext` (included
+    in TypeScript v5.x+).
 
 [^5]: `ClassGetterDecoratorFunction` is the signature for decorators
-corresponding to the context type `ClassGetterDecoratorContext` (included in
-TypeScript v5.x+).
+    corresponding to the context type `ClassGetterDecoratorContext` (included in
+    TypeScript v5.x+).
 
 [^6]: `ClassSetterDecoratorFunction` is the signature for decorators
-corresponding to the context type `ClassSetterDecoratorContext` (included in
-TypeScript v5.x+).
+    corresponding to the context type `ClassSetterDecoratorContext` (included in
+    TypeScript v5.x+).
 
 [^7]: "Isomorphic Decorators" (a term used throughout this project) describes a
-special type of decorator, that is compatible with the current iteration of the
-Decorators Proposal (Stage 3), as well as the legacy[^8] (Stage 2,
-"experimentalDecorators") implementation in TypeScript. This allows you to write
-decorators that work in both environments, without needing to maintain two
-separate implementations.
+    special type of decorator, that is compatible with the current iteration of
+    the Decorators Proposal (Stage 3), as well as the legacy[^8] (Stage 2,
+    "experimentalDecorators") implementation in TypeScript. This allows you to
+    write decorators that work in both environments, without needing to maintain
+    two separate implementations.
 
 [^8]: "Legacy Decorators" refer to TypeScript's implementation of a previous
-iteration of the TC39 Decorators Proposal, which never surpassed Stage 2 (also
-commonly known as Stage 2 or "experimental decorators"). These require the
-"experimentalDecorators"[^9] option to be enabled in your TypeScript compiler
-options configuration.
+    iteration of the TC39 Decorators Proposal, which never surpassed Stage 2
+    (also commonly known as Stage 2 or "experimental decorators"). These require
+    the "experimentalDecorators"[^9] option to be enabled in your TypeScript
+    compiler options configuration.
 
 [^9]: Before TypeScript v4.x, these required you to enable the
-"experimentalDecorators" compiler option. In TypeScript v4.x they are enabled
-default. Starting in TypeScript v5.0, the newer Stage 3 decorators are the
-default, and these legacy (Stage 2) decorators once again require the
-"experimentalDecorators" option to be enabled.
+    "experimentalDecorators" compiler option. In TypeScript v4.x they are
+    enabled default. Starting in TypeScript v5.0, the newer Stage 3 decorators
+    are the default, and these legacy (Stage 2) decorators once again require
+    the "experimentalDecorators" option to be enabled.
 
 ## Getting Started
 

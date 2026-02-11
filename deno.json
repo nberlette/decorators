@@ -1,33 +1,48 @@
 {
-  "name": "@decorators/main",
-  "version": "0.1.3",
-  "tasks": {
-    "test": "deno test --parallel --allow-all --no-check=remote --coverage=.coverage ./packages/**/* ./internal/**/*",
-    "test:watch": "deno test --watch --parallel --allow-all --no-check=remote --coverage=.coverage ./packages/**/* ./internal/**/*",
-    "coverage": "deno coverage --html .coverage && mkdir docs && mv .coverage/html docs/coverage",
-    "coverage:open": "deno task coverage && open docs/coverage/index.html",
-    "fmt": "deno fmt ./packages/**/* ./internal/**/*",
-    "fmt:check": "deno fmt --check ./packages/**/* ./internal/**/*",
-    "fmt:watch": "deno fmt --watch ./packages/**/* ./internal/**/*",
-    "lint": "deno lint ./packages/**/* ./internal/**/*",
-    "lint:json": "deno lint --json ./packages/**/* ./internal/**/*",
-    "lint:watch": "deno lint --watch ./packages/**/* ./internal/**/*",
-    "docs": "deno doc --html --output=docs --name=decorators ./packages/**/*",
-    "docs:check": "deno doc --lint ./packages/**/*.ts",
-    "docs:open": "deno task docs && open docs/index.html",
-    "prepublish": "deno task fmt:check && deno task test && deno task lint && deno task docs && deno task coverage",
-    "bump": "deno task prepublish && deno run -Arq ./scripts/bump.ts",
-    "publish": "deno task bump && deno publish",
-    "publish:check": "deno task bump --dry-run && deno publish --dry-run",
-    "publish:major": "deno task bump --major && deno publish",
-    "publish:minor": "deno task bump --minor && deno publish",
-    "publish:patch": "deno task bump --patch && deno publish",
-    "clean": "rm -rf .coverage docs"
+  "license": "MIT",
+  "author": {
+    "name": "Nicholas Berlette",
+    "email": "nick@berlette.com",
+    "url": "https://github.com/nberlette/decorators"
   },
-  "workspaces": [
+  "workspace": [
     "./internal",
-    "./packages/alias",
-    "./packages/bind",
-    "./packages/types"
+    "./packages/*"
+  ],
+  "tasks": {
+    "test:check": "deno test --parallel -A --clean --coverage=.coverage",
+    "test": "deno task test:check --no-check=remote",
+    "test:cov": "deno coverage --html .coverage",
+    "test:nocheck": "deno task test:check --no-check",
+    "docs": "deno doc --html --name=\"@decorators/$(basename $(pwd))\" mod.ts",
+    "docs:json": "deno doc --json mod.ts > docs/api.json",
+    "docs:lint": "deno doc --lint ./[!_.]*.ts",
+    "docs:test": "deno task test --doc --permit-no-files",
+    "fmt": "deno fmt --ignore=docs --ignore=.coverage",
+    "fmt:check": "deno task fmt --check",
+    "lint": "deno lint --ignore=docs --ignore=.coverage",
+    "lint:fix": "deno task lint --fix",
+    "check:all": "deno task lint; deno task docs:lint; deno task fmt:check",
+    "test:all": "deno task test; deno task docs:test; deno task test:cov",
+    "prepare": "deno task check:all && deno task test:all && deno task docs",
+    "publish": "deno task publish:dry && deno publish",
+    "publish:dry": "deno task prepare && deno publish --dry-run --allow-dirty"
+  },
+  "lock": true,
+  "vendor": false,
+  "nodeModulesDir": "auto",
+  "publish": {
+    "include": [
+      "./{packages,internal}/**/*.{ts,tsx,json,jsonc,md}",
+      "./{packages,internal}/**/LICENSE"
+    ],
+    "exclude": [
+      "**/*.test.*",
+      "**/*.{test,bench}.*",
+      "**/.*"
+    ]
+  },
+  "exclude": [
+    "**/{dist,docs,node_modules}/**"
   ]
 }

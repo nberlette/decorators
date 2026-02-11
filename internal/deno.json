@@ -1,13 +1,17 @@
 {
   "name": "@decorators/internal",
-  "version": "0.1.3",
+  "version": "0.2.0",
+  "license": "MIT",
+  "author": {
+    "name": "Nicholas Berlette",
+    "email": "nick@berlette.com",
+    "url": "https://github.com/nberlette/decorators"
+  },
   "exports": {
     ".": "./mod.ts",
-    "./assert": "./assert.ts",
-    "./helpers": "./helpers.ts",
-    "./types": "./types.ts"
-  },
-  "publish": {
-    "include": ["*.ts", "*.json", "*.md", "LICENSE"]
+    "./assert": "./src/assert.ts",
+    "./guards": "./src/guards.ts",
+    "./helpers": "./src/helpers.ts",
+    "./types": "./src/types.ts"
   }
 }

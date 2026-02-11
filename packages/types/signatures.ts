@@ -1,5 +1,4 @@
 // deno-lint-ignore-file no-explicit-any
-import { __throw } from "./_internal.ts";
 import type {
   AnyDecoratorTypeMap,
   Constructor,
@@ -25,7 +24,7 @@ import type {
   DecoratorThis,
   DecoratorValue,
 } from "./utilities.ts";
-import {
+import type {
   LegacyDecoratorArguments,
   LegacyDecoratorKind,
   LegacyDecoratorReturn,

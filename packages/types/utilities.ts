@@ -1,6 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
 
-import { __throw } from "./_internal.ts";
 import type {
   AbstractConstructor,
   DecoratorTypeMap,
