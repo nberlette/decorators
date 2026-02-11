@@ -1,7 +1,7 @@
 // deno-lint-ignore-file ban-types no-explicit-any
 
 import type {
-AbstractConstructor,
+  AbstractConstructor,
   Is,
   KeyOf,
   LegacyDecoratorTypeMap,

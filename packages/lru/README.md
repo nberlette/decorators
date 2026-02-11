@@ -746,4 +746,3 @@ logs to the console whenever a method is called.
 [badge-jsr-pkg]: https://jsr.io/badges/@decorators/lru "View @decorators/lru on jsr.io"
 [badge-jsr-score]: https://jsr.io/badges/@decorators/lru/score "View the score for @decorators/lru on jsr.io"
 [`@iter/weak-map`]: https://jsr.io/@iter/weak-map "View the @iter/weak-map package on jsr.io"
-

@@ -102,7 +102,10 @@ export function alias<
   This extends object,
   Value,
   Name extends PropertyKey & keyof This,
-  const Aliases extends readonly [Exclude<keyof This, Name>, ...Exclude<keyof This, Name>[]],
+  const Aliases extends readonly [
+    Exclude<keyof This, Name>,
+    ...Exclude<keyof This, Name>[],
+  ],
 >(...aliases: [...Aliases]): AliasDecorator<This, Value, Name>;
 
 /** @ignore */
@@ -214,7 +217,11 @@ export function alias<
   };
 }
 
-export interface AliasDecorator<This extends object, Value = unknown, Name extends PropertyKey = PropertyKey> {
+export interface AliasDecorator<
+  This extends object,
+  Value = unknown,
+  Name extends PropertyKey = PropertyKey,
+> {
   (
     target: ClassAccessorDecoratorTarget<This, Value>,
     context: ClassAccessorDecoratorContext<This, Value> & { name: Name },
